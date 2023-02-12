@@ -1,12 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+
 <head>
 <title>Bookstore</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+
 	<h1>Books</h1>
-	<table>
+	<table class="table table-striped" >
 	<!-- otsikkorivi -->
 	<tr>
 		<th>Title</th>
@@ -25,14 +28,14 @@
 	<td th:text="${book.getIsbn()}">ISBN</td>
 	<td th:text="${book.getPrice()}">Price</td>
 	
-	<td><a th:href="@{/delete/{id}(id=${book.getId})}">Delete</a></td>
+	<td><a th:href="@{/delete/{id}(id=${book.getId})}" class="btn btn-danger">Delete</a></td>
 	<td><a th:href="@{/edit/{id}(id=${book.getId})}">Edit</a></td>
 	
 	</tr>
 	</table>
 	
 	
-		<p><a href="/newbook">Add new book</a></p>
+		<p><a href="/newbook" class="btn btn-success">Add new book</a></p>
 	
 
 </body>
