@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -29,7 +30,7 @@ public class BookController {
 			List<Book> books = (List<Book>)bookRepository.findAll(); // haetaan tietokannasta 
 			model.addAttribute("books", books); // välitetään kirjalista templatelle model-olion avulla
 
-			return "book-list"; // DispatherServlet saa tämän template-nimen ja kutsuu seuraavaksi book-list.html-templatea,
+			return "booklist"; // DispatherServlet saa tämän template-nimen ja kutsuu seuraavaksi booklist.html-templatea,
 								// joka prosessoidaan palvelimella
 		}
 
@@ -37,7 +38,7 @@ public class BookController {
 	@RequestMapping(value = "/newbook", method = RequestMethod.GET)
 	public String getNewBookForm(Model model) {
 		model.addAttribute("book", new Book()); // "tyhjä" kirja-olio
-		return "bookform";
+		return "addbook";
 	}
 
 	// kirjalomakeella syötettyjen tietojen vastaanotto ja tallennus
@@ -49,9 +50,21 @@ public class BookController {
 		return "redirect:/index"; // uudelleenohjataan suorittamaan endpoint /index (GET)
 	}
 
-	
-	
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	public String deleteStudent(@PathVariable("id") Long Id, Model model) {
+		bookRepository.deleteById(Id);
+		
+		return "redirect:/index";
+	}
 
+	// Edit student
+	@RequestMapping(value = "/edit/{id}")
+	public String showModStu(@PathVariable("id") Long id, Model model){
+		model.addAttribute("book", bookRepository.findById(id));
+		model.addAttribute("departments", bookRepository.findAll());
+		
+		return "editbook";
+	}
 	
 	
 }
