@@ -30,8 +30,8 @@ public class BookstoreApplication {
 			categoryRepository.save(category3);
 			
 			
-			Book book1 = new Book("Harry Potter And The Philosopher's Stone", "J.K. Rowling", 1997, "978-0-7475-3269-9", 23.95);
-			Book book2 = new Book("Heartstopper Volume One", "Alice Oseman", 2018, "978-1-5272-2533-6", 17.95);
+			Book book1 = new Book("Harry Potter And The Philosopher's Stone", "J.K. Rowling", 1997, "978-0-7475-3269-9", 23.95, category3);
+			Book book2 = new Book("Heartstopper Volume One", "Alice Oseman", 2018, "978-1-5272-2533-6", 17.95, category3);
 			bookRepository.save(book1); // SQL Insert
 			bookRepository.save(book2); // SQL Insert
 			

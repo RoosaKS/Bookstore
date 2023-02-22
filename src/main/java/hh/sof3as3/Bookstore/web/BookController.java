@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import hh.sof3as3.Bookstore.domain.Book;
 import hh.sof3as3.Bookstore.domain.BookRepository;
+import hh.sof3as3.Bookstore.domain.CategoryRepository;
 
 
 @Controller
@@ -21,7 +22,10 @@ public class BookController {
 	@Autowired 
 	// Spring etsii sovelluksen käynnistyessä BookRepository-rajapinnan toteuttavan 
 	// luokan, luo siitä olion ja asettaa sen attribuuttimuuttujaan arvoksi
-	BookRepository bookRepository; 
+	private BookRepository bookRepository; 
+	
+	@Autowired
+	private CategoryRepository categoryRepository; 
 	
 	// kirjojenlistaus
 		@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -38,6 +42,8 @@ public class BookController {
 	@RequestMapping(value = "/newbook", method = RequestMethod.GET)
 	public String getNewBookForm(Model model) {
 		model.addAttribute("book", new Book()); // "tyhjä" kirja-olio
+    	model.addAttribute("categories", categoryRepository.findAll());
+
 		return "addbook";
 	}
 
@@ -51,17 +57,17 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public String deleteStudent(@PathVariable("id") Long Id, Model model) {
+	public String deleteBook(@PathVariable("id") Long Id, Model model) {
 		bookRepository.deleteById(Id);
 		
 		return "redirect:/index";
 	}
 
-	// Edit student
+	// Edit book
 	@RequestMapping(value = "/edit/{id}")
-	public String showModStu(@PathVariable("id") Long id, Model model){
+	public String showModBook(@PathVariable("id") Long id, Model model){
 		model.addAttribute("book", bookRepository.findById(id));
-		model.addAttribute("departments", bookRepository.findAll());
+		model.addAttribute("categories", categoryRepository.findAll());
 		
 		return "editbook";
 	}

@@ -17,6 +17,7 @@
 		<th>Year</th>
 		<th>ISBN</th>
 		<th>Price (€)</th>
+		<th>Category</th>
 		
 	</tr>
 	
@@ -27,6 +28,8 @@
 	<td th:text="${book.getYear()}">Year</td>
 	<td th:text="${book.getIsbn()}">ISBN</td>
 	<td th:text="${book.getPrice()}">Price</td>
+	<td th:text="${book.category.name}"></td> 		
+	
 	
 	<td><a th:href="@{/delete/{id}(id=${book.getId})}" class="btn btn-danger">Delete</a></td>
 	<td><a th:href="@{/edit/{id}(id=${book.getId})}">Edit</a></td>
