@@ -1,14 +1,17 @@
 package hh.sof3as3.Bookstore.web;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import hh.sof3as3.Bookstore.domain.Book;
 import hh.sof3as3.Bookstore.domain.BookRepository;
@@ -37,6 +40,20 @@ public class BookController {
 			return "booklist"; // DispatherServlet saa tämän template-nimen ja kutsuu seuraavaksi booklist.html-templatea,
 								// joka prosessoidaan palvelimella
 		}
+		
+		//REST- metodi, get all books
+		@GetMapping("/books")
+		public @ResponseBody List<Book> getBooks(){
+			return (List <Book>) bookRepository.findAll();
+		}
+		
+		//REST-metodi, get one book by id value
+		@GetMapping("/books/{id}")
+		public @ResponseBody Optional<Book> getOneBook(@PathVariable("id") Long bookId){
+			return bookRepository.findById(bookId);
+		}
+		
+		
 
 	// tyhjän kirjalomakkeen muodostaminen
 	@RequestMapping(value = "/newbook", method = RequestMethod.GET)
