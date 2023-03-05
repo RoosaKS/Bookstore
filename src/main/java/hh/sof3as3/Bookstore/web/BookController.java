@@ -48,7 +48,7 @@ public class BookController {
 		}
 		
 		//REST-metodi, get one book by id value
-		@GetMapping("/books/{id}")
+		@GetMapping("books/{id}")
 		public @ResponseBody Optional<Book> getOneBook(@PathVariable("id") Long bookId){
 			return bookRepository.findById(bookId);
 		}
