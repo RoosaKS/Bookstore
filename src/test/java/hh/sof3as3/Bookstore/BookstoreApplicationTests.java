@@ -28,9 +28,19 @@ class BookstoreApplicationTests {
 
 	
 	@Test
-	public void contextLoads() {
+	public void bookContextLoads() {
 		assertThat(bookController).isNotNull();
+
+	}
+	
+	@Test
+	public void categoryContextLoads() {
 		assertThat(categoryController).isNotNull();
+
+	}
+	
+	@Test
+	public void userContextLoads() {
 		assertThat(userController).isNotNull();
 
 	}
